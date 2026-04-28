@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jamiu Olawale | Power Platform Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181b22;
+    --border: #1e2230;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --text: #e8ecf4;
+    --muted: #6b7280;
+    --tag-bg: rgba(0,212,255,0.08);
+    --tag-border: rgba(0,212,255,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 .name-line {
+    display: block;
+    color: var(--text);
+  }
+  .hero h1 .role-line {
+    display: block;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 500;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    max-width: 500px;
+    margin-bottom: 3.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    padding: 2rem;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .skill-card:hover { background: var(--surface2); }
+
+  .skill-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .skill-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .skill-bar {
+    margin-top: 1rem;
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transform-origin: left;
+    animation: fillBar 1.5s ease forwards;
+    transform: scaleX(0);
+  }
+
+  @keyframes fillBar {
+    to { transform: scaleX(1); }
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media(max-width: 720px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-4px);
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .project-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 3px;
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.2rem 0.55rem;
+  }
+
+  .project-impact {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+  }
+  .impact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .impact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .impact-list li {
+    font-size: 0.82rem;
+    color: var(--muted);
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .impact-list li::before {
+    content: '→';
+    color: var(--accent3);
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  @media(max-width: 720px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .project-card.featured { grid-column: 1; display: block; }
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .experience-timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .exp-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    padding-top: 0.15rem;
+  }
+  .exp-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .exp-org {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  @media(max-width: 720px) {
+    .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .contact-text p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover {
+    border-color: rgba(0,212,255,0.3);
+    background: var(--surface2);
+  }
+  .contact-link-icon {
+    font-size: 1.1rem;
+    width: 28px;
+    text-align: center;
+  }
+  .contact-link-text {
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+  .contact-link-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    display: block;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* GLOW */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(80px);
+    opacity: 0.12;
+  }
+  .glow-1 {
+    width: 500px; height: 500px;
+    background: var(--accent);
+    top: -150px; right: -100px;
+  }
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: var(--accent2);
+    bottom: 20%; left: -150px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* FADE IN */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* CURSOR DOT */
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    background: var(--accent);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    vertical-align: middle;
+    height: 0.85em;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @media(max-width:768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .stats-bar { gap: 2rem; padding: 1.5rem; }
+    footer { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">JO/</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Power Platform Developer · Nestlé Nigeria</div>
+  <h1>
+    <span class="name-line">Jamiu Olawale</span>
+    <span class="role-line">Building Intelligent<br>Business Systems<span class="cursor"></span></span>
+  </h1>
+  <p class="hero-sub">
+    I transform <strong>manual, paper-based workflows</strong> into automated, data-driven Power Platform solutions — from multi-clinic management systems to factory analytics dashboards. <strong>End-to-end. No hardcoding. No shortcuts.</strong>
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Work →</a>
+    <a href="https://www.linkedin.com/in/jamiuayomideolawale/" target="_blank" class="btn btn-outline">LinkedIn Profile</a>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-num">10+</span>
+    <span class="stat-label">Production Apps</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">23</span>
+    <span class="stat-label">SharePoint Lists (Single App)</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">12</span>
+    <span class="stat-label">Automate Flows</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">35+</span>
+    <span class="stat-label">DAX Measures Written</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">5</span>
+    <span class="stat-label">Platform Stack</span>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Core Expertise</div>
+  <h2 class="section-title">Full-Stack Power Platform</h2>
+  <p class="section-desc">Every layer of the Microsoft Power Platform — from canvas app UI to DAX intelligence to backend automation.</p>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">⚡</span>
+      <div class="skill-name">Power Apps</div>
+      <div class="skill-desc">Canvas apps with complex Power Fx formulas, multi-role navigation, gallery patterns, barcode scanning, and signature capture.</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔄</span>
+      <div class="skill-name">Power Automate</div>
+      <div class="skill-desc">Multi-step cloud flows, chunked JSON payloads, approval chains, SharePoint document library integration, and scheduled reporting.</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">📊</span>
+      <div class="skill-name">Power BI + DAX</div>
+      <div class="skill-desc">Star-schema data models, dynamic DAX measures, conditional formatting, SAP S/4HANA integration, and 7-page report architectures.</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🗂️</span>
+      <div class="skill-name">SharePoint Architecture</div>
+      <div class="skill-desc">Designing normalized SharePoint list schemas as relational-style backends for Power Apps and Automate workflows.</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🏭</span>
+      <div class="skill-name">SAP S/4HANA</div>
+      <div class="skill-desc">SAP reporting, spool extraction, and pipeline integration into Power Platform data flows for enterprise-grade analytics.</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🎨</span>
+      <div class="skill-name">HTML/CSS & Power Fx</div>
+      <div class="skill-desc">Custom HTML card templates, Flexbox calendar layouts, and advanced Power Fx including complex collection management patterns.</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Production Projects</h2>
+  <p class="section-desc">Real systems, deployed in a live factory environment at Nestlé Nigeria.</p>
+
+  <div class="projects-grid">
+
+    <!-- FEATURED -->
+    <div class="project-card featured">
+      <div>
+        <div class="project-badge">★ Featured Project</div>
+        <h3 class="project-title">Clinic Management System NG</h3>
+        <p class="project-desc">A full multi-clinic Power Apps system replacing paper-based medical records. Covers end-to-end patient flow: Record Officer intake → Nurse/Doctor consultation → Pharmacist dispensing. Separate satellite clinic mode for single-nurse operations.</p>
+        <div class="project-tags">
+          <span class="tag">Power Apps</span>
+          <span class="tag">23 SharePoint Lists</span>
+          <span class="tag">12 Automate Flows</span>
+          <span class="tag">Multi-Role</span>
+          <span class="tag">Prescription Engine</span>
+        </div>
+      </div>
+      <div class="project-impact">
+        <span class="impact-label">System Highlights</span>
+        <ul class="impact-list">
+          <li>Walk-in confirmation pattern — confirm-then-create, zero data orphans</li>
+          <li>ClinicType column routing main vs satellite clinic modes</li>
+          <li>Prescription management: PrescriptionsHeader + PrescriptionItems lists with 2-screen nurse/doctor workflow</li>
+          <li>4-branch conditional Power Fx button logic for airtight state management</li>
+          <li>Replaced entirely paper-based medical records for 2 factory sites</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Access Control</div>
+      <h3 class="project-title">STS Factory Access Management System</h3>
+      <p class="project-desc">A comprehensive canvas app covering shift scheduling, access control, and staff pack collection — with barcode scanning, digital signatures, and bulk JSON data submission via Power Automate.</p>
+      <div class="project-tags">
+        <span class="tag">Power Apps</span>
+        <span class="tag">Power Automate</span>
+        <span class="tag">Barcode Scan</span>
+        <span class="tag">Signature Capture</span>
+        <span class="tag">QR Codes</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Analytics</div>
+      <h3 class="project-title">STS Access Power BI Analytics</h3>
+      <p class="project-desc">7-page Power BI report built from the STS app's SharePoint schema. Includes 35+ DAX measures, headcount funnel, entry hour analysis, age band bucketing, and conditional formatting — zero hardcoding.</p>
+      <div class="project-tags">
+        <span class="tag">Power BI</span>
+        <span class="tag">DAX</span>
+        <span class="tag">Star Schema</span>
+        <span class="tag">10 SharePoint Lists</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Finance</div>
+      <h3 class="project-title">Factory Costing Report</h3>
+      <p class="project-desc">Replaced a legacy local-Excel costing report with a full SAP → Excel → Power Automate → SharePoint → Power BI pipeline. Features fully dynamic ACE proration using ALLSELECTED(DimDate) month counting.</p>
+      <div class="project-tags">
+        <span class="tag">SAP S/4HANA</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">DAX</span>
+        <span class="tag">Power Automate</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Scheduling</div>
+      <h3 class="project-title">Waste Buyers Visit Calendar System</h3>
+      <p class="project-desc">Automated visit scheduling replacing manual Excel tracking. Features fairness-based "Robin Hood" buyer rotation, disqualification logging, hybrid spacing logic, and HTML calendar cards with Flexbox layout.</p>
+      <div class="project-tags">
+        <span class="tag">Power Automate</span>
+        <span class="tag">Power Apps</span>
+        <span class="tag">HTML/CSS</span>
+        <span class="tag">Rotation Logic</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Training</div>
+      <h3 class="project-title">Power Platform Training Programme</h3>
+      <p class="project-desc">Developed instructor-led training content: 18-slide gradient PowerPoint deck, a 49-page Power Apps facilitator guide with 8 modules, screen mockups, and a 35+ formula quick reference card.</p>
+      <div class="project-tags">
+        <span class="tag">Facilitation</span>
+        <span class="tag">Documentation</span>
+        <span class="tag">Power Apps</span>
+        <span class="tag">Power BI</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Who I Am</h2>
+      <p>I'm a <strong>Digital Solutions Professional at Nestlé's Agbara Factory</strong> in Nigeria, where I design and deploy Power Platform systems that replace manual, paper-based, or Excel-dependent processes across factory operations.</p>
+      <p>My approach is always to <strong>understand the full logic</strong> — not just deliver a solution, but build something I can explain, maintain, and teach to others. I document everything. I never hardcode what should be dynamic.</p>
+      <p>Outside the factory, I'm a student at the <strong>National Open University of Nigeria (NOUN)</strong> and a community development contributor, applying the same systems thinking to grassroots challenges.</p>
+    </div>
+    <div>
+      <div class="section-label">Timeline</div>
+      <div class="experience-timeline">
+        <div class="exp-item">
+          <div class="exp-year">2024–Now</div>
+          <div>
+            <div class="exp-title">Digital Solutions Professional</div>
+            <div class="exp-org">Nestlé Nigeria — Agbara Factory (Plant 1478)</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-year">Ongoing</div>
+          <div>
+            <div class="exp-title">Power Platform Developer</div>
+            <div class="exp-org">Power Apps · Power Automate · Power BI · SharePoint</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-year">Active</div>
+          <div>
+            <div class="exp-title">BSc Student</div>
+            <div class="exp-org">National Open University of Nigeria (NOUN)</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-year">Community</div>
+          <div>
+            <div class="exp-title">Design Contributor</div>
+            <div class="exp-org">Agamudu Center Community Development Association</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-text">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Work Together</h2>
+      <p>If you're looking for a Power Platform developer who brings deep logic, clean architecture, and thorough documentation — I'd love to connect.</p>
+      <p>I'm open to consulting on Power Platform builds, automation design, and Power BI reporting for manufacturing and operations contexts.</p>
+    </div>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/jamiuayomideolawale/" target="_blank" class="contact-link">
+        <span class="contact-link-icon">in</span>
+        <div>
+          <div class="contact-link-text">LinkedIn Profile</div>
+          <span class="contact-link-sub">linkedin.com/in/jamiuayomideolawale</span>
+        </div>
+      </a>
+      <a href="mailto:your.email@example.com" class="contact-link">
+        <span class="contact-link-icon">✉</span>
+        <div>
+          <div class="contact-link-text">Email</div>
+          <span class="contact-link-sub">Add your email address here</span>
+        </div>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-link-icon">🏭</span>
+        <div>
+          <div class="contact-link-text">Location</div>
+          <span class="contact-link-sub">Agbara, Ogun State · Nigeria</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<footer>
+  <p>© 2026 Jamiu Olawale · Power Platform Developer</p>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/jamiuayomideolawale/" target="_blank">LinkedIn</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
